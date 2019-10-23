@@ -10,7 +10,7 @@ import { CUSTOMERS } from '../dummyData/customerDummyData';
 /** customer component*/
 export class CustomerComponent implements OnInit {
     customers:Object;
-
+    p:Number = 1;
     ngOnInit(): void {
         this.customers = CUSTOMERS;
     }

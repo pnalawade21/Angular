@@ -1,0 +1,14 @@
+<div style="text-align:center">
+ <h1>
+   Welcome to {{ title }}!
+ </h1>
+</div>
+
+<ag-grid-angular 
+  style="width:800px; height: 150px; margin:auto"
+  class="ag-theme-blue"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs">
+</ag-grid-angular>
+
+<router-outlet></router-outlet>

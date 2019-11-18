@@ -8,6 +8,8 @@ import { GetProductsComponent } from './get-products/get-products.component';
 import { EditProductsComponent } from './edit-products/edit-products.component';
 import {SlimLoadingBarModule} from '@cime/ngx-slim-loading-bar';
 import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductService } from './product.service';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,11 @@ import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
     AppRoutingModule,
     SlimLoadingBarModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [BrowserModule, SlimLoadingBarModule],
-  providers: [],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

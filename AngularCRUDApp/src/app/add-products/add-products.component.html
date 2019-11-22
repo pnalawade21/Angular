@@ -3,7 +3,7 @@
         <form [formGroup] = "angForm" novalidate>
             <div class="form-group">
                     <label class="col-md-4">Product Name</label>
-                    <input type= "text" class="form-control" formControlName="product_name" #product_name/>
+                    <input type= "text" class="form-control" formControlName="product_name" #productname/>
             </div>
             <div *ngIf="angForm.controls['product_name'].invalid && (angForm.controls['product_name'].dirty ||
             angForm.controls['product_name'].touched)" class="alert alert-danger">
@@ -13,7 +13,7 @@
             </div>
             <div class="form-group">
                     <label class="col-md-4">Product Cost</label>
-                    <input type= "text" class="form-control" formControlName = "product_cost" #product_cost/>
+                    <input type= "text" class="form-control" formControlName = "product_cost" #productcost/>
             </div>
             <div *ngIf="angForm.controls['product_cost'].invalid && (angForm.controls['product_cost'].dirty ||
             angForm.controls['product_cost'].touched)" class="alert alert-danger">
@@ -23,7 +23,7 @@
             </div> 
             <div class="form-group">
                     <label class="col-md-4">Manufacturer Name</label>
-                    <input type= "text" class="form-control" formControlName = "manufacturer_name" #manufacturer_name/>
+                    <input type= "text" class="form-control" formControlName = "manufacturer_name" #manufacturername/>
             </div>
             <div *ngIf = "angForm.controls['manufacturer_name'].invalid && (angForm.controls['manufacturer_name'].dirty ||
             angForm.controls['manufacturer_name'].touched)" class="alert alert-danger">
@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                     <label class="col-md-4">Effective Date</label>
-                    <input type="date" class="form-control" formControlName = "effective_date" #effective_date/>
+                    <input type="date" class="form-control" formControlName = "effective_date" #effectivedate/>
             </div>
             <div *ngIf= "angForm.controls['effective_date'].invalid && (angForm.controls['effective_date'].dirty ||
             angForm.controls['effective_date'].touched)" class="alert alert-danger">
@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                     <label class="col-md-4">Expiry Date</label>
-                    <input type= "date" class="form-control" formControlName = "expiry_date" #expiry_date/>
+                    <input type= "date" class="form-control" formControlName = "expiry_date" #expirydate/>
             </div>
             <div *ngIf = "angForm.controls['expiry_date'].invalid && (angForm.controls['expiry_date'].dirty ||
             angForm.controls['expiry_date'].touched)" class="alert alert-danger">
@@ -52,8 +52,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <button (click) = "addProduct(product_name.value, product_cost.value, manufacturer_name.value,
-                effective_date.value, expiry_date.value)" 
+                <button (click) = "addProduct(productname.value, productcost.value, manufacturername.value,
+                effectivedate.value, expirydate.value)" 
                 [disabled] = "angForm.pristine || angForm.invalid"
                 type="submit" class="btn btn-primary">
                     Add Product

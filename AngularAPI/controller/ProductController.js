@@ -140,8 +140,6 @@ var routes = function(){
         });
     });
 
-
-
     return router;
 };
 module.exports = routes;

@@ -13,8 +13,8 @@ var routes = function(){
         conn.connect().then(function(){
             var sqlQuery = "select * from products";
             var req = new sql.Request(conn);
-            req.query(sqlQuery).then(function(recordSet){
-                res.json(recordSet.recordSet);
+            req.query(sqlQuery).then(function(recordSet){                
+                res.json(recordSet.recordset);
                 conn.close();
             }).catch(function(error){
                 conn.close();

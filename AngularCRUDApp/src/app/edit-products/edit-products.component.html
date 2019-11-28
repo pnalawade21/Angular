@@ -1,1 +1,60 @@
-<p>edit-business works!</p>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup] = "angFormEdit" novalidate>
+            <div class="form-group">
+                    <label class="col-md-4">Product Name</label>
+                    <input type= "text" class="form-control" formControlName="product_name" #productname [(ngModel)] = "product.ProductName"/>
+            </div>
+            <div *ngIf="angFormEdit.controls['product_name'].invalid && (angFormEdit.controls['product_name'].dirty ||
+            angFormEdit.controls['product_name'].touched)" class="alert alert-danger">
+                <div *ngIf="angFormEdit.controls['product_name'].errors.required">
+                      Product Name is required.          
+                </div>
+            </div>
+            <div class="form-group">
+                    <label class="col-md-4">Product Cost</label>
+                    <input type= "text" class="form-control" formControlName = "product_cost" #productcost [(ngModel)] = "product.ProductCost"/>
+            </div>
+            <div *ngIf="angFormEdit.controls['product_cost'].invalid && (angFormEdit.controls['product_cost'].dirty ||
+            angFormEdit.controls['product_cost'].touched)" class="alert alert-danger">
+                <div *ngIf = "angFormEdit.controls['product_cost'].errors.required">
+                        Product Cost is required.
+                </div>
+            </div> 
+            <div class="form-group">
+                    <label class="col-md-4">Manufacturer Name</label>
+                    <input type= "text" class="form-control" formControlName = "manufacturer_name" #manufacturername [(ngModel)] = "product.ManufacturerName"/>
+            </div>
+            <div *ngIf = "angFormEdit.controls['manufacturer_name'].invalid && (angFormEdit.controls['manufacturer_name'].dirty ||
+            angFormEdit.controls['manufacturer_name'].touched)" class="alert alert-danger">
+                <div *ngIf= "angFormEdit.controls['manufacturer_name'].errors.required">
+                        Manufacturer Name is required.
+                </div>
+            </div>
+            <div class="form-group">
+                    <label class="col-md-4">Effective Date</label>
+                    <input type="date" class="form-control" formControlName = "effective_date" #effectivedate [ngModel] = "product.EffectiveDate | date:'yyyy-MM-dd'" (ngModelChange)="product.EffectiveDate = $event"/>
+            </div>
+            <div *ngIf= "angFormEdit.controls['effective_date'].invalid && (angFormEdit.controls['effective_date'].dirty ||
+            angFormEdit.controls['effective_date'].touched)" class="alert alert-danger">
+                <div *ngIf = "angFormEdit.controls['effective_date'].errors.required">
+                        Effective Date is required.
+                </div>
+            </div>
+            <div class="form-group">
+                    <label class="col-md-4">Expiry Date</label>
+                    <input type= "date" class="form-control" formControlName = "expiry_date" #expirydate [ngModel] = "product.ExpiryDate | date:'yyyy-MM-dd'" (ngModelChange) = "product.ExpiryDate = $event"/>
+            </div>
+            <div *ngIf = "angFormEdit.controls['expiry_date'].invalid && (angFormEdit.controls['expiry_date'].dirty ||
+            angFormEdit.controls['expiry_date'].touched)" class="alert alert-danger">
+                <div *ngIf= "angFormEdit.controls['expiry_date'].errors.required">
+                        Expiry Date is required.   
+                </div>
+            </div>
+            <div class="form-group">
+                <button (click) = 'updateProduct(productname.value, productcost.value, manufacturername.value, effectivedate.value,
+                expirydate.value)'  type="submit" class="btn btn-primary" [disabled] = "angFormEdit.pristine ||angFormEdit.invalid">Update Product</button>
+            </div>
+        </form>
+    </div>
+</div>

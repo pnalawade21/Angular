@@ -26,6 +26,24 @@ var routes = function(){
         });
     });
 
+    router.route('/:id').get(function(req, res){
+        var productId = req.params.id;
+        conn.connect().then(function(){
+            var sqlQuery = "select * from products where productID = " + productId ;
+            var req = new sql.Request(conn);
+            req.query(sqlQuery).then(function(recordSet){                
+                res.json(recordSet.recordset);
+                conn.close();
+            }).catch(function(error){
+                conn.close();
+                res.status(400).send("error while fetching data.");
+            });
+        }).catch(function(error){
+            conn.close();
+            res.status(400).send("error while fetching data.");
+        });
+    });
+
     /*Test Json Data: {
     "ProductName": "WebCam",
     "ProductCost": "5000",

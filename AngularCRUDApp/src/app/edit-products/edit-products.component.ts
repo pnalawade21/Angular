@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ProductService } from '../product.service';
-import Product from '../Product';
 
 @Component({
   selector: 'app-edit-products',
@@ -14,7 +13,7 @@ export class EditProductsComponent implements OnInit {
   product:any = {};
   angFormEdit:FormGroup;
 
-  constructor(private route:ActivatedRoute,  private router:Router,  private ps:ProductService, private fb:FormBuilder) {
+  constructor(private route:ActivatedRoute,   private ps:ProductService, private fb:FormBuilder) {
       this.createForm();
      }
 
@@ -38,10 +37,7 @@ export class EditProductsComponent implements OnInit {
 
   updateProduct(product_name, product_cost, manufacturer_name, effective_date, expiry_date){
     this.route.params.subscribe(params => {
-      var promise = this.ps.updateProduct(product_name, product_cost, manufacturer_name, effective_date, expiry_date, params['id']); 
-      //promise.then((data) => {
-      //  this.router.navigate(["products"]);
-     // });           
+      this.ps.updateProduct(product_name, product_cost, manufacturer_name, effective_date, expiry_date, params['id']);            
     });
   }
 }

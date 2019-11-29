@@ -18,4 +18,8 @@ export class GetProductsComponent implements OnInit {
       console.log(this.products);
     }, error => console.log(error));
   }
+
+  deleteProduct(productID){
+    this.ps.deleteProduct(productID);
+  }
 }

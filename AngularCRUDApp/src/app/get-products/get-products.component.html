@@ -16,7 +16,7 @@
         <td>{{ product.EffectiveDate }}</td>
         <td>{{ product.ExpiryDate }}</td>
         <td><a [routerLink] = "['/products/edit', product.ProductID]" class = "btn btn-primary">Edit</a></td>
-        <td><a [routerLink] = "" class = "btn btn-danger">Delete</a></td>
+        <td><a (click) = "deleteProduct(product.ProductID)" class = "btn btn-danger">Delete</a></td>
     </tbody>
 
 </table>

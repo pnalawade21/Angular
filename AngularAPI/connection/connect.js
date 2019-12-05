@@ -1,12 +1,18 @@
+"use strict";
+exports.__esModule = true;
 var sql = require("mssql");
-var connect = function(){
-    var conn = new sql.ConnectionPool({
-        user: "PNTest",
-        password: "$Abc1234",
-        server: "P703648-W10",
-        database: "TestAngularDB"
-    });
-    return conn;
-};
-
-module.exports = connect;
+var Connect = /** @class */ (function () {
+    function Connect() {
+    }
+    Connect.prototype.GetSqlConnection = function () {
+        var conn = new sql.ConnectionPool({
+            user: "PNTest",
+            password: "$Abc1234",
+            server: "P703648-W10",
+            database: "TestAngularDB"
+        });
+        return conn;
+    };
+    return Connect;
+}());
+exports.Connect = Connect;

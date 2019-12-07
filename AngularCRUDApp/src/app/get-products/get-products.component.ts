@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../product.service';
+import Product from '../Product';
 
 @Component({
   selector: 'app-get-products',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GetProductsComponent implements OnInit {
 
-  constructor() { }
+  products: Product[];
+  constructor(private ps:ProductService) { }
 
   ngOnInit() {
+    this.ps.getProducts().subscribe((data: Product[]) =>{ 
+      this.products = data;    
+      console.log(this.products);
+    }, error => console.log(error));
   }
 
+  deleteProduct(productID){
+    this.ps.deleteProduct(productID);
+  }
 }

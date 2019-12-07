@@ -1,147 +1,48 @@
-var express = require("express");
-var router = express.Router();
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+exports.__esModule = true;
 var sql = require("mssql");
-var conn = require("../connection/connect")();
-
-String.isNullOrEmpty = function (value) {
-    return !value;
-}
-
-var routes = function(){
-
-    router.route('/').get(function(req, res){
-        conn.connect().then(function(){
+var routing_controllers_1 = require("routing-controllers");
+var ProductController = /** @class */ (function () {
+    function ProductController(conn) {
+        this.conn = conn;
+    }
+    ProductController.prototype.GetAllProducts = function (res) {
+        var sqlConn;
+        try {
+            sqlConn = this.conn.GetSqlConnection();
+            sqlConn.connect();
             var sqlQuery = "select * from products";
-            var req = new sql.Request(conn);
-            req.query(sqlQuery).then(function(recordSet){
-                res.json(recordSet.recordSet);
-                conn.close();
-            }).catch(function(error){
-                conn.close();
+            var sqlReq = new sql.Request(sqlConn);
+            sqlReq.query(sqlQuery).then(function (recordSet) {
+                res.json(recordSet.recordset);
+                sqlConn.close();
+            })["catch"](function (error) {
+                sqlConn.close();
                 res.status(400).send("error while fetching data.");
             });
-        }).catch(function(error){
-            conn.close();
+        }
+        catch (error) {
+            sqlConn.close();
             res.status(400).send("error while fetching data.");
-        });
-    });
-
-    /*Test Json Data: {
-    "ProductName": "WebCam",
-    "ProductCost": "5000",
-    "ManufacturerName": "Test",
-    "EffectiveDate" : "2019-04-23T18:25:43.511Z",
-    "ExpiryDate" : "2020-04-23T18:25:43.511Z"
-    } */
-    router.route('/').post(function(req, res){
-        conn.connect().then(function(){
-            var transaction = new sql.Transaction(conn);
-
-            transaction.begin().then(function(){
-                var request = new sql.Request(transaction);
-                request.input("ProductName", sql.VarChar(100), req.body.ProductName);
-                request.input("ProductCost", sql.VarChar(100), req.body.ProductCost);
-                request.input("ManufacturerName", sql.VarChar(100), req.body.ManufacturerName);              
-                request.input("EffectiveDate", sql.Date, req.body.EffectiveDate);              
-                request.input("ExpiryDate", sql.Date, req.body.ExpiryDate);
-
-                request.execute("sp_InsertProduct").then(function(){
-                    transaction.commit().then(function(recordSet){
-                        conn.close();
-                        res.status(200).send(req.body);
-                    }).catch(function(error){
-                        conn.close();
-                        res.status(400).send("error while inserting data.");
-                    });
-                }).catch(function(error){
-                    conn.close();
-                    res.status(400).send("error while inserting data.");
-                });
-            }).catch(function(error){
-                conn.close();
-                res.status(400).send("error while connecting database.");
-            });
-        }).catch(function(error){
-            conn.close();
-            res.status(400).send("error while connecting database.");
-        });
-    });
-
-    router.route("/:id").put(function(req, res){
-        var productId = req.params.id;
-        conn.connect().then(function(){
-            var transaction = new sql.Transaction(conn);
-
-            transaction.begin().then(function(){
-                var request = new sql.Request(transaction);
-                request.input("ProductID", sql.Int, productId);
-                if(!String.isNullOrEmpty(req.body.ProductName))
-                    request.input("ProductName", sql.VarChar(100), req.body.ProductName);
-                if(!String.isNullOrEmpty(req.body.ProductCost))    
-                    request.input("ProductCost", sql.VarChar(100), req.body.ProductCost);
-                if(!String.isNullOrEmpty(req.body.ManufacturerName))
-                    request.input("ManufacturerName", sql.VarChar(100), req.body.ManufacturerName);   
-                if(!String.isNullOrEmpty(req.body.EffectiveDate))           
-                    request.input("EffectiveDate", sql.Date, req.body.EffectiveDate);   
-                if(!String.isNullOrEmpty(req.body.ExpiryDate))          
-                    request.input("ExpiryDate", sql.Date, req.body.ExpiryDate);
-
-                request.execute("sp_UpdateProduct").then(function(){
-                    transaction.commit().then(function(recordSet){
-                        conn.close();
-                        res.status(200).send(req.body);
-                    }).catch(function(error){
-                        conn.close();
-                        res.status(400).send("error while updating data");
-                    });
-                }).catch(function(error){
-                    conn.close();
-                    res.status(400).send("error while updating data");
-                });
-            }).catch(function(error){
-                conn.close();
-                res.status(400).send("error while updating data");
-            });
-        }).catch(function(error){
-            conn.close();
-            res.status(400).send("error while updating data");
-        });
-    });
-
-    router.route("/:id").delete(function(req, res){
-        var productId = req.params.id;
-        conn.connect().then(function(){
-            var transaction = new sql.Transaction(conn);
-
-            transaction.begin().then(function(){
-                var request = new sql.Request(transaction);
-
-                request.input("ProductID", sql.Int, productId);
-
-                request.execute("sp_DeleteProduct").then(function(){
-                    transaction.commit().then(function(recordSet){
-                        conn.close();
-                        res.status(200).send(req.body);
-                    }).catch(function(error){
-                        conn.close();
-                        res.status(400).send("error while deleting the product");
-                    });
-                }).catch(function(error){
-                    conn.close();
-                    res.status(400).send("error while deleting the product");
-                });
-            }).catch(function(error){
-                conn.close();
-                res.status(400).send("error while deleting the product");
-            });
-        }).catch(function(error){
-            conn.close();
-            res.status(400).send("error while connecting the database");
-        });
-    });
-
-
-
-    return router;
-};
-module.exports = routes;
+        }
+        ;
+    };
+    __decorate([
+        routing_controllers_1.Get("/"),
+        __param(0, routing_controllers_1.Res())
+    ], ProductController.prototype, "GetAllProducts");
+    ProductController = __decorate([
+        routing_controllers_1.Controller()
+    ], ProductController);
+    return ProductController;
+}());
+exports.ProductController = ProductController;

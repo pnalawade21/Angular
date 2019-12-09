@@ -5,7 +5,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[sp_UpdateProduct]
+CREATE PROCEDURE [dbo].[sp_UpdateProduct]
 	-- Add the parameters for the stored procedure here
 	@ProductID AS INT,
 	@ProductName AS VARCHAR(MAX) = NULL,

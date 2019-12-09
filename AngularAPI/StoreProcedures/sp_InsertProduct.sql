@@ -11,7 +11,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO Products (ProductName, ProductCost, ManufacturerName, EffectievDate, ExpiryDate) 
+    INSERT INTO Products (ProductName, ProductCost, ManufacturerName, EffectiveDate, ExpiryDate) 
 	VALUES(@ProductName, @ProductCost, @ManufacturerName, @EffectiveDate, @ExpiryDate)
 END
 GO

@@ -1,9 +1,6 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "noImplicitAny": true,
-        "target": "es6"
-    },
-    "include": ["src/shared/**/*", "src/admin/**/* ", "./typings"]
+        "allowJs": true
+    }
 }

@@ -1,11 +1,9 @@
 import * as express from 'express';
-import * as connect from '../src/connect';
+import * as connect from '../Database/connect';
 import * as sql from 'mssql';
 
-import { request } from 'http';
-
 class ProductController{
-    public path = '/Products';
+    public path = '/api/products';
     public router = express.Router();
     private sqlcon;
 
@@ -18,7 +16,7 @@ class ProductController{
         this.router.get(this.path, this.getAllProducts);
         this.router.get(this.path + "/:id", this.getProductById);
         this.router.post(this.path, this.createProduct);
-        this.router.put(this.path, this.updateProduct);
+        this.router.put(this.path + "/:id", this.updateProduct);
         this.router.delete(this.path + "/:id", this.deleteProduct);
     }
     isNullOrEmpty = (value) => {
@@ -134,7 +132,7 @@ class ProductController{
         this.sqlcon.connect().then(() => {
             var transaction = new sql.Transaction(this.sqlcon);
 
-            transaction.begin().then(function(){
+            transaction.begin().then(() => {
                 var sqlRequest = new sql.Request(transaction);
                 sqlRequest.input("ProductName", sql.VarChar(100), request.body.ProductName);
                 sqlRequest.input("ProductCost", sql.VarChar(100), request.body.ProductCost);

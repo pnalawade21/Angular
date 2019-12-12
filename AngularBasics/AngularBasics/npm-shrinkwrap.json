@@ -258,6 +258,15 @@
       "integrity": "sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=",
       "dev": true
     },
+    "angular2-router-loader": {
+      "version": "0.3.5",
+      "resolved": "https://registry.npmjs.org/angular2-router-loader/-/angular2-router-loader-0.3.5.tgz",
+      "integrity": "sha1-Kxj6loPg6Kqz6UL12ToR1jw3wwM=",
+      "dev": true,
+      "requires": {
+        "loader-utils": "^0.2.15"
+      }
+    },
     "angular2-template-loader": {
       "version": "0.6.2",
       "resolved": "https://registry.npmjs.org/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz",
@@ -712,9 +721,9 @@
       }
     },
     "bootstrap": {
-      "version": "3.3.7",
-      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
-      "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E=",
+      "version": "3.4.1",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.4.1.tgz",
+      "integrity": "sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==",
       "dev": true
     },
     "brace-expansion": {

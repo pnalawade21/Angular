@@ -19,7 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "joi": "^14.3.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mssql": "^6.0.1",
     "routing-controllers": "^0.8.0"
   },
